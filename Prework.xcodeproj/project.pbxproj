@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A149EB512746056A0023302B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149EB502746056A0023302B /* SettingsViewController.swift */; };
 		A1C63AFE274494990092C694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63AFD274494990092C694 /* AppDelegate.swift */; };
 		A1C63B00274494990092C694 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63AFF274494990092C694 /* SceneDelegate.swift */; };
 		A1C63B02274494990092C694 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63B01274494990092C694 /* ViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A149EB502746056A0023302B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A1C63AFA274494990092C694 /* Prework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C63AFD274494990092C694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1C63AFF274494990092C694 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				A1C63AFF274494990092C694 /* SceneDelegate.swift */,
 				A1C63B01274494990092C694 /* ViewController.swift */,
 				A1C63B03274494990092C694 /* Main.storyboard */,
+				A149EB502746056A0023302B /* SettingsViewController.swift */,
 				A1C63B062744949B0092C694 /* Assets.xcassets */,
 				A1C63B082744949B0092C694 /* LaunchScreen.storyboard */,
 				A1C63B0B2744949B0092C694 /* Info.plist */,
@@ -263,6 +266,7 @@
 				A1C63B02274494990092C694 /* ViewController.swift in Sources */,
 				A1C63AFE274494990092C694 /* AppDelegate.swift in Sources */,
 				A1C63B00274494990092C694 /* SceneDelegate.swift in Sources */,
+				A149EB512746056A0023302B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,8 +445,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F54M32JY6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prework/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TTC;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -468,8 +474,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F54M32JY6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prework/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TTC;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

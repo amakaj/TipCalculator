@@ -13,11 +13,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipAmountLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var background2: UIImageView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "Tip Calculator"
+        background.layer.cornerRadius = 5
+        background2.layer.cornerRadius = 5
+        billAmountTextField.becomeFirstResponder()
     }
 
     @IBAction func calculateTip(_ sender: Any) {
