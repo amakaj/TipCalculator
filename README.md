@@ -4,7 +4,7 @@
 
 Created and submitted by **Anthony Makaj**
 
-**1** hours spent developing in total
+**4** hours spent developing in total
 
 ## Additional Info:
 
