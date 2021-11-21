@@ -40,7 +40,6 @@ class ViewController: UIViewController {
         totalLabelBox.alpha = 0
         totalLabel.alpha = 0
         totalIndicator.alpha = 0
-
     }
 
     @IBAction func calculateTip(_ sender: Any) {
@@ -79,7 +78,6 @@ class ViewController: UIViewController {
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
-                self.tipValueBox.backgroundColor = .systemGreen
                 if (tipValue < 15)
                 {
                     UIView.animate(withDuration:0.2, delay: 0.2, animations: {
@@ -91,6 +89,8 @@ class ViewController: UIViewController {
                         self.moreTipLabel.alpha = 1
                          */
                     })
+                } else {
+                    self.tipValueBox.backgroundColor = .systemGreen
                 }
                 /* supposed to make suggestion go away but could not get this specific part to work
                 if (isTipValueFieldEmpty)
@@ -109,9 +109,15 @@ class ViewController: UIViewController {
         //Update total amount
         if ((tipValueField.text?.isEmpty == false) && (billAmountTextField.text?.isEmpty == false))
         {
+            let currencyFormatter = NumberFormatter()
+            currencyFormatter.usesGroupingSeparator = true
+            currencyFormatter.numberStyle = .currency
+            currencyFormatter.locale = Locale.current
+            let formattedNum = total as NSNumber
             UIView.animate(withDuration: 0.3, animations:
             {
-                self.totalLabel.text = String(format: "$%.2f", total)
+                //self.totalLabel.text = String(format: "$%.2f", total)
+                self.totalLabel.text = currencyFormatter.string(from: formattedNum)
                 self.totalLabelBox.alpha = 0.2
                 self.totalLabel.alpha = 1
                 self.totalIndicator.alpha = 1
