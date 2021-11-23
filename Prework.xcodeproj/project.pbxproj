@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A149EB512746056A0023302B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149EB502746056A0023302B /* SettingsViewController.swift */; };
 		A1C63AFE274494990092C694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63AFD274494990092C694 /* AppDelegate.swift */; };
 		A1C63B00274494990092C694 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63AFF274494990092C694 /* SceneDelegate.swift */; };
 		A1C63B02274494990092C694 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63B01274494990092C694 /* ViewController.swift */; };
@@ -17,6 +16,7 @@
 		A1C63B152744949C0092C694 /* PreworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63B142744949C0092C694 /* PreworkTests.swift */; };
 		A1C63B1F2744949C0092C694 /* PreworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63B1E2744949C0092C694 /* PreworkUITests.swift */; };
 		A1C63B212744949C0092C694 /* PreworkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C63B202744949C0092C694 /* PreworkUITestsLaunchTests.swift */; };
+		A1C6F9E8274C6A20001B39C9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C6F9E7274C6A20001B39C9 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A149EB502746056A0023302B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A1C63AFA274494990092C694 /* Prework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C63AFD274494990092C694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1C63AFF274494990092C694 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		A1C63B1E2744949C0092C694 /* PreworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreworkUITests.swift; sourceTree = "<group>"; };
 		A1C63B202744949C0092C694 /* PreworkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreworkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A1C63B2D2745875A0092C694 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A1C6F9E7274C6A20001B39C9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +106,8 @@
 				A1C63AFD274494990092C694 /* AppDelegate.swift */,
 				A1C63AFF274494990092C694 /* SceneDelegate.swift */,
 				A1C63B01274494990092C694 /* ViewController.swift */,
+				A1C6F9E7274C6A20001B39C9 /* SettingsViewController.swift */,
 				A1C63B03274494990092C694 /* Main.storyboard */,
-				A149EB502746056A0023302B /* SettingsViewController.swift */,
 				A1C63B062744949B0092C694 /* Assets.xcassets */,
 				A1C63B082744949B0092C694 /* LaunchScreen.storyboard */,
 				A1C63B0B2744949B0092C694 /* Info.plist */,
@@ -266,7 +266,7 @@
 				A1C63B02274494990092C694 /* ViewController.swift in Sources */,
 				A1C63AFE274494990092C694 /* AppDelegate.swift in Sources */,
 				A1C63B00274494990092C694 /* SceneDelegate.swift in Sources */,
-				A149EB512746056A0023302B /* SettingsViewController.swift in Sources */,
+				A1C6F9E8274C6A20001B39C9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

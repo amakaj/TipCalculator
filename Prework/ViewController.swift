@@ -18,8 +18,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var billAmountLabel: UILabel!
     @IBOutlet weak var tipAmountLabel: UILabel!
     @IBOutlet weak var totalIndicator: UILabel!
-    @IBOutlet weak var moreTipBox: UIImageView!
-    @IBOutlet weak var moreTipLabel: UILabel!
+    @IBOutlet weak var splitBillLabel: UILabel!
+    @IBOutlet weak var splitBillCounter: UIStepper!
+    @IBOutlet weak var splitBillNumPersons: UILabel!
+    @IBOutlet weak var splitBillBackground: UIImageView!
+    @IBOutlet weak var dividedTotalBackground: UIImageView!
+    @IBOutlet weak var dividedTotalLabel: UILabel!
+    @IBOutlet weak var perPersonLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -30,18 +35,35 @@ class ViewController: UIViewController {
         tipValueBox.layer.cornerRadius = 10
         billAmountBox.layer.cornerRadius = 10
         totalLabelBox.layer.cornerRadius = 10
-        moreTipBox.layer.cornerRadius = 10
-        moreTipLabel.text = "Tip some more!"
+        splitBillBackground.layer.cornerRadius = 10
+        dividedTotalBackground.layer.cornerRadius = 10
         billAmountBox.backgroundColor = .systemBlue
         tipValueBox.backgroundColor = .systemBlue
         totalLabelBox.backgroundColor = .systemBlue
-        moreTipBox.alpha = 0
-        moreTipLabel.alpha = 0
         totalLabelBox.alpha = 0
         totalLabel.alpha = 0
         totalIndicator.alpha = 0
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        splitBillLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        splitBillBackground.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        splitBillCounter.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        splitBillNumPersons.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        dividedTotalBackground.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        dividedTotalLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        perPersonLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+    }
 
+    @IBAction func changePersonCounter(_ sender: Any) {
+        if (self.splitBillCounter.value > 1)
+        {
+            self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " people")
+        } else {
+            self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " person")
+        }
+    }
+    
     @IBAction func calculateTip(_ sender: Any) {
         // Get bill amount from the text field input
         let bill = Double(billAmountTextField.text!) ?? 0
@@ -50,7 +72,9 @@ class ViewController: UIViewController {
         let tipValue = Double(tipValueField.text!) ?? 0
         let tipPercentage = tipValue*0.01
         let tip = bill * tipPercentage
-        let total = bill + tip
+        let total = (bill+tip)
+        let dividedTotal = total/splitBillCounter.value
+        
 
         // Animations
         if (billAmountTextField.text?.isEmpty ?? true) {
@@ -82,25 +106,10 @@ class ViewController: UIViewController {
                 {
                     UIView.animate(withDuration:0.2, delay: 0.2, animations: {
                         self.tipValueBox.backgroundColor = .systemRed
-                        /* supposed to give a suggestion to tip more but could not get it to work
-                        self.moreTipBox.frame = CGRect(x:265, y:216, width:104, height:31)
-                        self.moreTipLabel.frame = CGRect(x:273, y:216, width:88, height:31)
-                        self.moreTipBox.alpha = 0.2
-                        self.moreTipLabel.alpha = 1
-                         */
                     })
                 } else {
                     self.tipValueBox.backgroundColor = .systemGreen
                 }
-                /* supposed to make suggestion go away but could not get this specific part to work
-                if (isTipValueFieldEmpty)
-                {
-                    self.moreTipLabel.alpha = 0
-                    self.moreTipBox.alpha = 0
-                    self.moreTipBox.frame = CGRect(x:250, y:205, width:104, height:31)
-                    self.moreTipLabel.frame = CGRect(x:281, y:205, width:88, height:31)
-                }
-                 */
                 self.tipValueBox.frame = CGRect(x: 205, y: 178, width: 174, height: 37)
                 self.tipValueField.frame = CGRect(x: 205, y: 178, width: 174, height: 37)
                 self.tipAmountLabel.frame = CGRect(x: 16, y: 180, width: 181, height: 33)
@@ -114,9 +123,9 @@ class ViewController: UIViewController {
             currencyFormatter.numberStyle = .currency
             currencyFormatter.locale = Locale.current
             let formattedNum = total as NSNumber
+            let formattedDividedNum = dividedTotal as NSNumber
             UIView.animate(withDuration: 0.3, animations:
             {
-                //self.totalLabel.text = String(format: "$%.2f", total)
                 self.totalLabel.text = currencyFormatter.string(from: formattedNum)
                 self.totalLabelBox.alpha = 0.2
                 self.totalLabel.alpha = 1
@@ -125,6 +134,22 @@ class ViewController: UIViewController {
                 self.totalIndicator.frame = CGRect(x:158,y:440,width:99, height:39)
                 self.totalLabel.frame = CGRect(x:16, y:460, width:383, height:144)
             })
+            if (splitBillCounter.isHidden == false && splitBillCounter.value>1)
+            {
+                self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.dividedTotalBackground.frame = CGRect(x:0, y:316, width:240, height:79)
+                    self.dividedTotalLabel.frame = CGRect(x:20, y:323, width:203, height:36)
+                    self.perPersonLabel.frame = CGRect(x:20, y:359, width:203, height:36)
+                })
+            } else {
+                self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.dividedTotalBackground.frame = CGRect(x:-350, y:316, width:240, height:79)
+                    self.dividedTotalLabel.frame = CGRect(x:-350, y:323, width:203, height:36)
+                    self.perPersonLabel.frame = CGRect(x:-350, y:359, width:203, height:36)
+                })
+            }
         } else {
             UIView.animate(withDuration: 0.3, animations:
             {
@@ -134,6 +159,9 @@ class ViewController: UIViewController {
                 self.totalLabelBox.frame = CGRect(x:0, y:1000, width: 414, height:570)
                 self.totalIndicator.frame = CGRect(x:158,y:1000,width:99, height:39)
                 self.totalLabel.frame = CGRect(x:0, y:1000, width:383, height:144)
+                self.dividedTotalBackground.frame = CGRect(x:-350, y:316, width:240, height:79)
+                self.dividedTotalLabel.frame = CGRect(x:-350, y:323, width:203, height:36)
+                self.perPersonLabel.frame = CGRect(x:-350, y:359, width:203, height:36)
             })
         }
     }
