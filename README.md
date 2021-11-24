@@ -4,14 +4,31 @@
 
 Created and submitted by **Anthony Makaj**
 
-**4** hours spent developing in total
+**12** hours spent developing in total
 
-## Additional Info:
+## User Stories:
 
 The following **required** functionality is complete:
 
-* [ ] User can enter a bill amount, choose a tip percentage, and see the tip and total values.
-* [ ] User can select between tip percentages by tapping different values on the segmented control and the tip value is updated accordingly.
+* [x] User can enter a bill amount, choose a tip percentage, and see the tip and total values.
+* [x] User can select between tip percentages by tapping different values on the segmented control and the tip value is updated accordingly.
+
+The following **optional** features are implemented:
+
+* [x] UI animations
+* [x] Remembering the bill amount across app restarts.
+* [x] Using locale-specific currency and currency thousands separators.
+* [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+
+The following **additional** features are implemented:
+
+* [x] Split-bill functionality that divides the total amongst a specified number of people.
+* [x] An in-app "dark mode" that can be enabled in settings.
+* [x] The user can specify a manual tip percentage by enabling it in settings.
+
+## Video Walkthrough
+
+
 
 ## License
 

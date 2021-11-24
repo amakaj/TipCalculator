@@ -25,18 +25,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var dividedTotalBackground: UIImageView!
     @IBOutlet weak var dividedTotalLabel: UILabel!
     @IBOutlet weak var perPersonLabel: UILabel!
+    @IBOutlet weak var tipBackground: UIImageView!
+    @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var tipValueLabel: UILabel!
+    @IBOutlet weak var segmentedTipControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "TTC Tip Calculator"
         billAmountTextField.becomeFirstResponder()
         tipValueBox.layer.cornerRadius = 10
         billAmountBox.layer.cornerRadius = 10
         totalLabelBox.layer.cornerRadius = 10
         splitBillBackground.layer.cornerRadius = 10
         dividedTotalBackground.layer.cornerRadius = 10
+        tipBackground.layer.cornerRadius = 10
         billAmountBox.backgroundColor = .systemBlue
         tipValueBox.backgroundColor = .systemBlue
         totalLabelBox.backgroundColor = .systemBlue
@@ -46,6 +50,15 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if (UserDefaults.standard.bool(forKey: "DARKMODE") == true)
+        {
+            overrideUserInterfaceStyle = .dark
+        } else if (UserDefaults.standard.bool(forKey: "DARKMODE") == false)
+        {
+            overrideUserInterfaceStyle = .light
+        }
+        billAmountTextField.text = UserDefaults.standard.string(forKey: "BILLAMOUNT")
+        tipValueField.text = UserDefaults.standard.string(forKey: "TIPVALUE")
         splitBillLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
         splitBillBackground.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
         splitBillCounter.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
@@ -53,6 +66,14 @@ class ViewController: UIViewController {
         dividedTotalBackground.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
         dividedTotalLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
         perPersonLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
+        tipValueField.isHidden = !UserDefaults.standard.bool(forKey: "MANUALTIP")
+        tipValueBox.isHidden = !UserDefaults.standard.bool(forKey: "MANUALTIP")
+        segmentedTipControl.isHidden = UserDefaults.standard.bool(forKey: "MANUALTIP")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.set(billAmountTextField.text, forKey: "BILLAMOUNT")
+        UserDefaults.standard.set(tipValueField.text, forKey: "TIPVALUE")
     }
 
     @IBAction func changePersonCounter(_ sender: Any) {
@@ -69,11 +90,25 @@ class ViewController: UIViewController {
         let bill = Double(billAmountTextField.text!) ?? 0
         
         // Get total tip by multiplying tip * tipValue
-        let tipValue = Double(tipValueField.text!) ?? 0
-        let tipPercentage = tipValue*0.01
-        let tip = bill * tipPercentage
-        let total = (bill+tip)
-        let dividedTotal = total/splitBillCounter.value
+        let tipValue: Double
+        let tipPercentage: Double
+        let tip: Double
+        let total: Double
+        let dividedTotal: Double
+        if (!tipValueField.isHidden)
+        {
+            tipValue = Double(tipValueField.text!) ?? 0
+            tipPercentage = tipValue*0.01
+            tip = bill * tipPercentage
+            total = (bill+tip)
+            dividedTotal = total/splitBillCounter.value
+        } else {
+            let tipPercentages = [0.18, 0.20, 0.22]
+            tipPercentage = tipPercentages[segmentedTipControl.selectedSegmentIndex]
+            tip = bill * tipPercentage
+            total = (bill+tip)
+            dividedTotal = total/splitBillCounter.value
+        }
         
 
         // Animations
@@ -93,7 +128,7 @@ class ViewController: UIViewController {
             })
         }
         
-        if (tipValueField.text?.isEmpty ?? true) {
+        if ((tipValueField.text?.isEmpty ?? true) || (tipValueField.isHidden)) {
             UIView.animate(withDuration: 0.2, animations: {
                 self.tipValueBox.backgroundColor = .systemBlue
                 self.tipValueBox.frame = CGRect(x: 16, y: 178, width: 383, height: 37)
@@ -102,7 +137,7 @@ class ViewController: UIViewController {
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
-                if (tipValue < 15)
+                if (tipPercentage < 0.15)
                 {
                     UIView.animate(withDuration:0.2, delay: 0.2, animations: {
                         self.tipValueBox.backgroundColor = .systemRed
@@ -116,7 +151,7 @@ class ViewController: UIViewController {
             })
         }
         //Update total amount
-        if ((tipValueField.text?.isEmpty == false) && (billAmountTextField.text?.isEmpty == false))
+        if (((tipValueField.text?.isEmpty == false) || (tipValueField.isHidden == true)) && (billAmountTextField.text?.isEmpty == false))
         {
             let currencyFormatter = NumberFormatter()
             currencyFormatter.usesGroupingSeparator = true
@@ -124,23 +159,28 @@ class ViewController: UIViewController {
             currencyFormatter.locale = Locale.current
             let formattedNum = total as NSNumber
             let formattedDividedNum = dividedTotal as NSNumber
+            let formattedTipNum = tip as NSNumber
             UIView.animate(withDuration: 0.3, animations:
             {
                 self.totalLabel.text = currencyFormatter.string(from: formattedNum)
+                self.tipValueLabel.text = currencyFormatter.string(from: formattedTipNum)
                 self.totalLabelBox.alpha = 0.2
                 self.totalLabel.alpha = 1
                 self.totalIndicator.alpha = 1
                 self.totalLabelBox.frame = CGRect(x:0, y:420, width:414, height:570)
                 self.totalIndicator.frame = CGRect(x:158,y:440,width:99, height:39)
                 self.totalLabel.frame = CGRect(x:16, y:460, width:383, height:144)
+                self.tipBackground.frame = CGRect(x:270, y:316, width:150, height:79)
+                self.tipLabel.frame = CGRect(x:317, y:326, width:57, height:30)
+                self.tipValueLabel.frame = CGRect(x:285, y:367, width:120, height:21)
             })
             if (splitBillCounter.isHidden == false && splitBillCounter.value>1)
             {
                 self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.dividedTotalBackground.frame = CGRect(x:0, y:316, width:240, height:79)
-                    self.dividedTotalLabel.frame = CGRect(x:20, y:323, width:203, height:36)
-                    self.perPersonLabel.frame = CGRect(x:20, y:359, width:203, height:36)
+                    self.dividedTotalBackground.frame = CGRect(x:-10, y:316, width:240, height:79)
+                    self.dividedTotalLabel.frame = CGRect(x:10, y:323, width:203, height:36)
+                    self.perPersonLabel.frame = CGRect(x:10, y:359, width:203, height:36)
                 })
             } else {
                 self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
@@ -162,6 +202,9 @@ class ViewController: UIViewController {
                 self.dividedTotalBackground.frame = CGRect(x:-350, y:316, width:240, height:79)
                 self.dividedTotalLabel.frame = CGRect(x:-350, y:323, width:203, height:36)
                 self.perPersonLabel.frame = CGRect(x:-350, y:359, width:203, height:36)
+                self.tipBackground.frame = CGRect(x:500, y:316, width:150, height:79)
+                self.tipLabel.frame = CGRect(x:500, y:326, width:57, height:30)
+                self.tipValueLabel.frame = CGRect(x:500, y:367, width:120, height:21)
             })
         }
     }
