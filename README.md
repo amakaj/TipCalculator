@@ -28,7 +28,7 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-![](https://i.imgur.com/nQqPiVF.gif)
+![](https://i.imgur.com/GkuR27n.gif)
 
 ## License
 
