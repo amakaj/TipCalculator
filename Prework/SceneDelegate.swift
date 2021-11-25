@@ -39,31 +39,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        /*
-        let oldDateMinutes = UserDefaults.standard.double(forKey: "OLDDATE")
-        let currentDate = Date()
-        let currentDateMinutes = currentDate.timeIntervalSinceReferenceDate/60
-        let interval = currentDateMinutes - oldDateMinutes
-        if (interval > 1)
-        {
-            for (key, value) in UserDefaults.standard.dictionaryRepresentation()
-            {
-                UserDefaults.standard.removeObject(forKey: key)
-            }
-        }
-         */
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        /*
-        let oldDate = Date()
-        let oldDateMinutes = oldDate.timeIntervalSinceReferenceDate/60
-        UserDefaults.standard.set(oldDateMinutes, forKey: "OLDDATE")
-        UserDefaults.standard.synchronize()
-         */
     }
 }
-

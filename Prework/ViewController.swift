@@ -2,8 +2,7 @@
 //  ViewController.swift
 //  Prework - TTC Calculator App
 //
-//  Created by Tony Makaj on 11/16/21.
-//
+//  Created by Anthony Makaj
 
 import UIKit
 
@@ -50,7 +49,9 @@ class ViewController: UIViewController {
         viewWillAppear(false)
     }
     
+    //Executes when ViewController (main page) appears on the foreground
     override func viewWillAppear(_ animated: Bool) {
+        //Checks if dark mode is enabled, and enable it on ViewController if so
         if (UserDefaults.standard.bool(forKey: "DARKMODE") == true)
         {
             overrideUserInterfaceStyle = .dark
@@ -58,6 +59,7 @@ class ViewController: UIViewController {
         {
             overrideUserInterfaceStyle = .light
         }
+        //Load saved values from the bill amount, manual tip percentage (or segmented tip control), split bill counter (and respective number of persons label), and check if manual tip is enabled
         billAmountTextField.text = UserDefaults.standard.string(forKey: "BILLAMOUNT")
         tipValueField.text = UserDefaults.standard.string(forKey: "TIPVALUE")
         splitBillLabel.isHidden = !UserDefaults.standard.bool(forKey: "sbSwitchIsOn")
@@ -72,6 +74,7 @@ class ViewController: UIViewController {
         segmentedTipControl.isHidden = UserDefaults.standard.bool(forKey: "MANUALTIP")
         segmentedTipControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "SELECTEDTIPSEGMENT")
         splitBillCounter.value = UserDefaults.standard.double(forKey: "SPLITBILLCOUNTER")
+        //Updates the label that displays the number of persons to split bill
         if (self.splitBillCounter.value > 1)
         {
             self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " people")
@@ -80,6 +83,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //When View Controller (main page) disappears, save existing values into UserDefaults
     override func viewWillDisappear(_ animated: Bool) {
         UserDefaults.standard.set(billAmountTextField.text, forKey: "BILLAMOUNT")
         UserDefaults.standard.set(tipValueField.text, forKey: "TIPVALUE")
@@ -88,6 +92,7 @@ class ViewController: UIViewController {
         UserDefaults.standard.synchronize()
     }
 
+    //When the number of "split bill" persons change, update label accordingly and save into UserDefaults
     @IBAction func changePersonCounter(_ sender: Any) {
         if (self.splitBillCounter.value > 1)
         {
@@ -99,16 +104,19 @@ class ViewController: UIViewController {
         UserDefaults.standard.synchronize()
     }
     
+    //The meat and bones of the app! Calculate the tip when all the inputs are satisfied
     @IBAction func calculateTip(_ sender: Any) {
         // Get bill amount from the text field input
         let bill = Double(billAmountTextField.text!) ?? 0
         
-        // Get total tip by multiplying tip * tipValue
+        //Variable declarations
         let tipValue: Double
         let tipPercentage: Double
         let tip: Double
         let total: Double
         let dividedTotal: Double
+        
+        // Get total tip by multiplying tip * tipValue, and execute necessary code depending if "manual tip" is enabled
         if (!tipValueField.isHidden)
         {
             tipValue = Double(tipValueField.text!) ?? 0
@@ -124,12 +132,13 @@ class ViewController: UIViewController {
             dividedTotal = total/splitBillCounter.value
         }
         
+        //Save existing values into UserDefaults
         UserDefaults.standard.set(billAmountTextField.text, forKey: "BILLAMOUNT")
         UserDefaults.standard.set(tipValueField.text, forKey: "TIPVALUE")
         UserDefaults.standard.set(segmentedTipControl.selectedSegmentIndex, forKey: "SELECTEDTIPSEGMENT")
         UserDefaults.standard.synchronize()
 
-        // Animations
+        //Animate the bill amount text field depending on if it's empty or not
         if (billAmountTextField.text?.isEmpty ?? true) {
             UIView.animate(withDuration: 0.2, animations: {
                 self.billAmountBox.backgroundColor = .systemBlue
@@ -146,6 +155,7 @@ class ViewController: UIViewController {
             })
         }
         
+        //Animate the tip value field depending on if its empty or not
         if ((tipValueField.text?.isEmpty ?? true) || (tipValueField.isHidden)) {
             UIView.animate(withDuration: 0.2, animations: {
                 self.tipValueBox.backgroundColor = .systemBlue
@@ -155,6 +165,7 @@ class ViewController: UIViewController {
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
+                //If tip percentage is less than 15%, change it to red because you should tip more :)
                 if (tipPercentage < 0.15)
                 {
                     UIView.animate(withDuration:0.2, delay: 0.2, animations: {
@@ -168,9 +179,10 @@ class ViewController: UIViewController {
                 self.tipAmountLabel.frame = CGRect(x: 16, y: 180, width: 181, height: 33)
             })
         }
-        //Update total amount
+        //Update total amount after checking if all the requirements are satisfied
         if (((tipValueField.text?.isEmpty == false) || (tipValueField.isHidden == true)) && (billAmountTextField.text?.isEmpty == false))
         {
+            //Format total & tip based on current locale and include thousands separators
             let currencyFormatter = NumberFormatter()
             currencyFormatter.usesGroupingSeparator = true
             currencyFormatter.numberStyle = .currency
@@ -178,6 +190,8 @@ class ViewController: UIViewController {
             let formattedNum = total as NSNumber
             let formattedDividedNum = dividedTotal as NSNumber
             let formattedTipNum = tip as NSNumber
+            
+            //Bring up the total!
             UIView.animate(withDuration: 0.3, animations:
             {
                 self.totalLabel.text = currencyFormatter.string(from: formattedNum)
@@ -192,6 +206,7 @@ class ViewController: UIViewController {
                 self.tipLabel.frame = CGRect(x:317, y:326, width:57, height:30)
                 self.tipValueLabel.frame = CGRect(x:285, y:367, width:120, height:21)
             })
+            //Bring out the value that each person should pay if it is greater than 1 person
             if (splitBillCounter.isHidden == false && splitBillCounter.value>1)
             {
                 self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
@@ -201,6 +216,7 @@ class ViewController: UIViewController {
                     self.perPersonLabel.frame = CGRect(x:10, y:359, width:203, height:36)
                 })
             } else {
+                //If it's less than one person or if split tip is disabled, make it go away!
                 self.dividedTotalLabel.text = currencyFormatter.string(from:formattedDividedNum)
                 UIView.animate(withDuration: 0.3, animations: {
                     self.dividedTotalBackground.frame = CGRect(x:-350, y:316, width:240, height:79)
@@ -209,6 +225,7 @@ class ViewController: UIViewController {
                 })
             }
         } else {
+            //If a bill amount and tip are not specified, make the total go away since there's no way to calculate it without those two
             UIView.animate(withDuration: 0.3, animations:
             {
                 self.totalLabel.alpha = 0
