@@ -4,7 +4,7 @@
 
 Created and submitted by **Anthony Makaj**
 
-**12** hours spent developing in total
+**15** hours spent developing in total
 
 ## User Stories:
 
