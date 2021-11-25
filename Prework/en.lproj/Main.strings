@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "Cr0-6o-V8B"; */
+"Cr0-6o-V8B.text" = "$0.00";
+
+/* Class = "UISegmentedControl"; Pz3-zp-W1l.segmentTitles[0] = "15%"; ObjectID = "Pz3-zp-W1l"; */
+"Pz3-zp-W1l.segmentTitles[0]" = "15%";
+
+/* Class = "UISegmentedControl"; Pz3-zp-W1l.segmentTitles[1] = "18%"; ObjectID = "Pz3-zp-W1l"; */
+"Pz3-zp-W1l.segmentTitles[1]" = "18%";
+
+/* Class = "UISegmentedControl"; Pz3-zp-W1l.segmentTitles[2] = "20%"; ObjectID = "Pz3-zp-W1l"; */
+"Pz3-zp-W1l.segmentTitles[2]" = "20%";
+
+/* Class = "UILabel"; text = "Tip"; ObjectID = "QsT-5X-arv"; */
+"QsT-5X-arv.text" = "Tip";
+
+/* Class = "UILabel"; text = "Total"; ObjectID = "aCo-dF-0VI"; */
+"aCo-dF-0VI.text" = "Total";
+
+/* Class = "UILabel"; text = "Bill Amount"; ObjectID = "iG2-j4-Pb3"; */
+"iG2-j4-Pb3.text" = "Bill Amount";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "rMH-uS-GSt"; */
+"rMH-uS-GSt.title" = "Settings";
+
+/* Class = "UILabel"; text = "$0.00"; ObjectID = "wuJ-u8-9vU"; */
+"wuJ-u8-9vU.text" = "$0.00";
