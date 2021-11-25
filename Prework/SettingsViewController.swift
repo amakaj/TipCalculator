@@ -15,8 +15,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var splitBillSwitch: UISwitch!
     @IBOutlet weak var darkModeSwitch: UISwitch!
     @IBOutlet weak var manualTipSwitch: UISwitch!
-    let SPLIT_BILL = "sbSwitchIsOn"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,10 +31,10 @@ class SettingsViewController: UIViewController {
     @IBAction func splitBill(_ sender: Any) {
         if (splitBillSwitch.isOn)
         {
-            UserDefaults.standard.set(true, forKey: SPLIT_BILL)
+            UserDefaults.standard.set(true, forKey: "sbSwitchIsOn")
             UserDefaults.standard.synchronize()
         } else {
-            UserDefaults.standard.set(false, forKey: SPLIT_BILL)
+            UserDefaults.standard.set(false, forKey: "sbSwitchIsOn")
             UserDefaults.standard.synchronize()
         }
     }
@@ -56,8 +55,10 @@ class SettingsViewController: UIViewController {
         if (manualTipSwitch.isOn)
         {
             UserDefaults.standard.set(true, forKey: "MANUALTIP")
+            UserDefaults.standard.synchronize()
         } else {
             UserDefaults.standard.set(false, forKey: "MANUALTIP")
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -66,7 +67,7 @@ class SettingsViewController: UIViewController {
     }
     
     func checkSplitBillSwitch() {
-        if (UserDefaults.standard.bool(forKey: SPLIT_BILL) == true)
+        if (UserDefaults.standard.bool(forKey: "sbSwitchIsOn") == true)
         {
             splitBillSwitch.setOn(true, animated: false)
         }
@@ -92,14 +93,4 @@ class SettingsViewController: UIViewController {
             manualTipSwitch.setOn(false, animated: false)
         }
     }
-    // MARK: - Navigation
-
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-}
-     */
 }

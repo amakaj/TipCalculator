@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         totalLabelBox.alpha = 0
         totalLabel.alpha = 0
         totalIndicator.alpha = 0
+        viewWillAppear(false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,11 +70,22 @@ class ViewController: UIViewController {
         tipValueField.isHidden = !UserDefaults.standard.bool(forKey: "MANUALTIP")
         tipValueBox.isHidden = !UserDefaults.standard.bool(forKey: "MANUALTIP")
         segmentedTipControl.isHidden = UserDefaults.standard.bool(forKey: "MANUALTIP")
+        segmentedTipControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "SELECTEDTIPSEGMENT")
+        splitBillCounter.value = UserDefaults.standard.double(forKey: "SPLITBILLCOUNTER")
+        if (self.splitBillCounter.value > 1)
+        {
+            self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " people")
+        } else {
+            self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " person")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UserDefaults.standard.set(billAmountTextField.text, forKey: "BILLAMOUNT")
         UserDefaults.standard.set(tipValueField.text, forKey: "TIPVALUE")
+        UserDefaults.standard.set(splitBillCounter.value, forKey: "SPLITBILLCOUNTER")
+        UserDefaults.standard.set(segmentedTipControl.selectedSegmentIndex, forKey: "SELECTEDTIPSEGMENT")
+        UserDefaults.standard.synchronize()
     }
 
     @IBAction func changePersonCounter(_ sender: Any) {
@@ -83,6 +95,8 @@ class ViewController: UIViewController {
         } else {
             self.splitBillNumPersons.text = (String(format: "%.0f", splitBillCounter.value) + " person")
         }
+        UserDefaults.standard.set(splitBillCounter.value, forKey: "SPLITBILLCOUNTER")
+        UserDefaults.standard.synchronize()
     }
     
     @IBAction func calculateTip(_ sender: Any) {
@@ -110,6 +124,10 @@ class ViewController: UIViewController {
             dividedTotal = total/splitBillCounter.value
         }
         
+        UserDefaults.standard.set(billAmountTextField.text, forKey: "BILLAMOUNT")
+        UserDefaults.standard.set(tipValueField.text, forKey: "TIPVALUE")
+        UserDefaults.standard.set(segmentedTipControl.selectedSegmentIndex, forKey: "SELECTEDTIPSEGMENT")
+        UserDefaults.standard.synchronize()
 
         // Animations
         if (billAmountTextField.text?.isEmpty ?? true) {
